@@ -16,7 +16,7 @@
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item">
+               <div id="phone" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -30,12 +30,12 @@
                            <button id="phoneAddQty" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="phoneAmount">1219</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="phone-remove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
 
-               <div class="cart-item">
+               <div id="case" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -49,7 +49,7 @@
 
                         </div>
                         <h5>$ <span id="caseAmount">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="case-remove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -65,8 +65,8 @@
 
                      <div class="col-md-4 status">
                         <h5>$ <span id="subTotal">1278</span></h5>
-                        <h5>$ <span id="tax">0</span></h5>
-                        <h5>$ <span id="total">0</span></h5>
+                        <h5>$ <span id="tax">63.9</span></h5>
+                        <h5>$ <span id="total">1341.9</span></h5>
                      </div>
                   </div>
                </div>
@@ -91,6 +91,8 @@
          incAmount("phoneAmount");
 
          subTotal();
+         tax();
+         total();
       })
 
       removeBtn1.addEventListener("click", function(){
@@ -99,6 +101,8 @@
          decAmount("phoneAmount");
 
          subTotal();
+         tax();
+         total();
       })
 
       // case
@@ -111,6 +115,8 @@
          incAmount("caseAmount");
 
          subTotal();
+         tax();
+         total();
       })
 
       removeBtn2.addEventListener("click", function(){
@@ -118,12 +124,28 @@
 
          decAmount("caseAmount");
 
-         subTotal();         
+         subTotal(); 
+         tax(); 
+         total();       
       })
 
 
+      // remove
+      
+      const phoneRemove = document.getElementById("phone-remove");
+      
+      phoneRemove.addEventListener("click", function(){
+         const phone = document.getElementById("phone");
+         phone.style.display = "none";
+         
+      })
 
+      const caseRemove = document.getElementById("case-remove");
 
+      caseRemove.addEventListener("click", function(){
+         const phoneCase = document.getElementById("case");
+         phoneCase.style.display = "none";
+      })
 
       // inc function
 
@@ -148,7 +170,6 @@
             return result;
          }
          
-         // return result;
       }
 
 
@@ -166,19 +187,51 @@
       function decAmount(id){
          const phoneAmount = document.getElementById(id);
          const phoneAmountNumber = parseInt(phoneAmount.innerText);
-         const result = phoneAmount.innerText = phoneAmountNumber - 1219;
-         return result;
+         if(id == "phoneAmount"){
+            const result = phoneAmount.innerText = phoneAmountNumber - 1219;
+            return result;
+         }
+         else{
+            const result = phoneAmount.innerText = phoneAmountNumber - 59;
+            return result;
+         }
       }
 
       // subtotal
 
       function subTotal(){
-         const subTotal = document.getElementById("subTotal")
-         const subTotalAmount = parseInt(caseAmount.innerText) + parseInt(phoneAmount.innerText);
-         const result = subTotal.innerText = subTotalAmount;
+         const subTotal = document.getElementById("subTotal");
+         const subTotalNumber = parseInt(caseAmount.innerText) + parseInt(phoneAmount.innerText);
+         const result = subTotal.innerText = subTotalNumber;
+         
          return result;
       }
 
+
+      // tax
+
+      function tax(){ 
+         const tax = document.getElementById("tax");
+         const subTotalTax = document.getElementById("subTotal");
+         const subTotalTaxNumber = parseInt(subTotalTax.innerText);
+         const totalTax = (subTotalTaxNumber * 5) / 100;
+         const result = tax.innerText = totalTax;
+
+         return result;
+      }
+
+      // total
+      
+      function total(){
+         const total = document.getElementById("total");
+         const taxAmount = document.getElementById("tax");
+         const subTotalAmount = document.getElementById("subTotal");
+         const taxAmountNumber = parseFloat(taxAmount.innerText);
+         const subTotalAmountNumber = parseInt(subTotalAmount.innerText);
+         const totalAmount = taxAmountNumber + subTotalAmountNumber;
+         const result = total.innerText = totalAmount;
+         return result;
+      }
 
    </script>
 </body>
