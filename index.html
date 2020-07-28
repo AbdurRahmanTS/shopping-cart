@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="phoneRemoveQty" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phoneQty" type="text" class="form-control text-center" value="1">
+                           <button id="phoneAddQty" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phoneAmount">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="caseRemoveQty" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseQty" type="text" class="form-control text-center" value="1">
+                           <button id="caseAddQty" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="caseAmount">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">1278</span></h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="total">0</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,110 @@
          </div>
       </div>
    </section>
+
+   <script>
+
+      // phone
+      const addBtn1 = document.getElementById("phoneAddQty");
+      const removeBtn1 = document.getElementById("phoneRemoveQty");
+
+            
+      addBtn1.addEventListener("click", function(){
+         incInput("phoneQty");
+
+         incAmount("phoneAmount");
+
+         subTotal();
+      })
+
+      removeBtn1.addEventListener("click", function(){
+         decInput("phoneQty");
+
+         decAmount("phoneAmount");
+
+         subTotal();
+      })
+
+      // case
+      const addBtn2 = document.getElementById("caseAddQty");
+      const removeBtn2 = document.getElementById("caseRemoveQty");
+
+      addBtn2.addEventListener("click", function(){
+         incInput("caseQty");
+
+         incAmount("caseAmount");
+
+         subTotal();
+      })
+
+      removeBtn2.addEventListener("click", function(){
+         decInput("caseQty");
+
+         decAmount("caseAmount");
+
+         subTotal();         
+      })
+
+
+
+
+
+      // inc function
+
+      function incInput(id){
+         const phoneQty = document.getElementById(id);
+         const phoneQtyNumber = parseInt(phoneQty.value);
+         const phoneQtyInc = phoneQtyNumber + 1;
+         const result = phoneQty.value = phoneQtyInc;
+         return result;
+      }
+
+
+      function incAmount(id){
+         const phoneAmount = document.getElementById(id);
+         const phoneAmountNumber = parseInt(phoneAmount.innerText);
+         if(id == "phoneAmount"){
+            const result = phoneAmount.innerText = phoneAmountNumber + 1219;
+            return result;
+         }
+         else{
+            const result = phoneAmount.innerText = phoneAmountNumber + 59;
+            return result;
+         }
+         
+         // return result;
+      }
+
+
+      // dec function
+
+      function decInput(id){
+         const phoneQty = document.getElementById(id);
+         const phoneQtyNumber = parseInt(phoneQty.value);
+         const phoneQtyInc = phoneQtyNumber - 1;
+         const result = phoneQty.value = phoneQtyInc;
+         return result;
+      }
+
+
+      function decAmount(id){
+         const phoneAmount = document.getElementById(id);
+         const phoneAmountNumber = parseInt(phoneAmount.innerText);
+         const result = phoneAmount.innerText = phoneAmountNumber - 1219;
+         return result;
+      }
+
+      // subtotal
+
+      function subTotal(){
+         const subTotal = document.getElementById("subTotal")
+         const subTotalAmount = parseInt(caseAmount.innerText) + parseInt(phoneAmount.innerText);
+         const result = subTotal.innerText = subTotalAmount;
+         return result;
+      }
+
+
+   </script>
 </body>
 
 </html>
